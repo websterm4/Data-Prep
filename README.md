@@ -161,11 +161,11 @@ data_2010 = data_2010.astype(int)
 days = xrange(365)
 year_2009 = np.empty(len(days))
 doy_2009 = np.empty(len(days))
-for i in days:
-    year[i],doy[i] = datetime.datetime(data_2009[i][0],data_2009[i][1],data_2009[i][2]).strftime('%Y %j').split()
+for i in xrange(365):
+    year_2009[i],doy_2009[i] = datetime.datetime(data_2009[i][0],data_2009[i][1],data_2009[i][2]).strftime('%Y %j').split()
 a = []
-a.append(year)
-a.append(doy)
+a.append(year_2009)
+a.append(doy_2009)
 a.append(data_2009[3])
 a.append(data_2009[4])
 a = np.array(a)
@@ -176,10 +176,10 @@ days10 = xrange(365)
 year_2010 = np.empty(len(days))
 doy_2010 = np.empty(len(days))
 for i in days:
-    year[i],doy[i] = datetime.datetime(data_2010[i][0],data_2010[i][1],data_2010[i][2]).strftime('%Y %j').split()
+    year_2010[i],doy_2010[i] = datetime.datetime(data_2010[i][0],data_2010[i][1],data_2010[i][2]).strftime('%Y %j').split()
 b = []
-b.append(year)
-b.append(doy)
+b.append(year_2010)
+b.append(doy_2010)
 b.append(data_2010[3])
 b.append(data_2010[4])
 b = np.array(b)
@@ -199,7 +199,7 @@ print b
 #.format for strings only
 #len(data[first dimension
 
-
+#CLEAN UP THE TEMPERATURE DATA - DONT NEED TO SEPERATE 2009 AND 2010 SO EARLY IN PROCESS
 
 
 
@@ -213,18 +213,30 @@ print b
 file = 'files/data/delnorte.dat'
 fp = open(file, 'r')
 data = fp.readlines()
-required_data = data[3314:4044] #max lines in doc = 4045, first 35 are header lines
+required_data2009 = data[3314:4044] #max lines in doc = 4045, first 35 are header lines
 data = np.loadtxt(required_data,usecols=(2,3),unpack=True,dtype=str)
 plt.plot(data[1].astype(float))
-data.readlines()
-import datetime
-ds = np.array(data[0][0].split('-')).astype(int)
-year,doy = datetime.datetime(ds[0],ds[1],ds[2]).strftime('%Y %j').split()
+data = data.T
 #All of the above code taken directly from the course notes
 #values needed are the last 730 values
 #values from 3323-4018 (add 35 on to first value to account for header lines)
 
+days = xrange(365)
+year = np.empty(len(days))
+doy = np.empty(len(days))
+for i in days:
+    ds = np.array(data[0][i].split('-')).astype(int)
+    year[i],doy[i] = datetime.datetime(ds[0],ds[1],ds[2]).strftime('%Y %j').split()
+d = []
+d.append(year)
+d.append(doy)
+d.append(data[1])
+print d
+Dis2009 = d[3314:3697]
+Dis2010 = d[3697:4044]
 
+
+#3697 should be end of 2009
 #interesting code
 #z = np.sqrt(x**2 + y**2) # array set up how you want it defined
 #ninside = len(np.where(z<1.)[0]) # new array showing how many values lie in a partciluar region using np.where
