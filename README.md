@@ -213,9 +213,9 @@ print b
 file = 'files/data/delnorte.dat'
 fp = open(file, 'r')
 data = fp.readlines()
-required_data2009 = data[3314:4044] #max lines in doc = 4045, first 35 are header lines
+required_data = data[3314:4044] #max lines in doc = 4045, first 35 are header lines
 data = np.loadtxt(required_data,usecols=(2,3),unpack=True,dtype=str)
-plt.plot(data[1].astype(float))
+#plt.plot(data[1].astype(float))
 data = data.T
 #All of the above code taken directly from the course notes
 #values needed are the last 730 values
@@ -225,15 +225,18 @@ days = xrange(365)
 year = np.empty(len(days))
 doy = np.empty(len(days))
 for i in days:
-    ds = np.array(data[0][i].split('-')).astype(int)
+    ds = np.array(data[0][0].split('-')).astype(int)
     year[i],doy[i] = datetime.datetime(ds[0],ds[1],ds[2]).strftime('%Y %j').split()
 d = []
 d.append(year)
 d.append(doy)
 d.append(data[1])
 print d
+d = np.array(d)
+d = d.astype(int)
 Dis2009 = d[3314:3697]
 Dis2010 = d[3697:4044]
+data[  ].mean()
 
 
 #3697 should be end of 2009
