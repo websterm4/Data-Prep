@@ -149,64 +149,32 @@ fp = open(file, 'r')
 tdata = fp.readlines()
 fp.close()
  #chop off the header lines
-required_data2009 = tdata[3290:3655] 
-required_data2010 = tdata[3655:-1096]
-data_2009 = np.loadtxt(required_data2009,usecols=(0,1,2,3,4),unpack=True,dtype=str) #shape(5,363)
-data_2010 = np.loadtxt(required_data2010,usecols=(0,1,2,3,4),unpack=True,dtype=str) #shape(5,365)
-data_2009 = data_2009.T
-data_2010 = data_2010.T
-data_2009 = data_2009.astype(int)
-data_2010 = data_2010.astype(int)
+required_data = tdata[3290:-1096] 
+data = np.loadtxt(required_data,usecols=(0,1,2,3,4),unpack=True,dtype=str) #shape(5,363)
+data = data.T
+data = data.astype(int)
 
 days = xrange(365)
-year_2009 = np.empty(len(days))
-doy_2009 = np.empty(len(days))
-for i in xrange(365):
-    year_2009[i],doy_2009[i] = datetime.datetime(data_2009[i][0],data_2009[i][1],data_2009[i][2]).strftime('%Y %j').split()
+year = np.empty(len(days))
+doy = np.empty(len(days))
+for i in days:
+    year[i],doy[i] = datetime.datetime(data[i][0],data[i][1],data[i][2]).strftime('%Y %j').split()
 a = []
-a.append(year_2009)
-a.append(doy_2009)
-a.append(data_2009[3])
-a.append(data_2009[4])
+a.append(year)
+a.append(doy)
+a.append(data[3])
+a.append(data[4])
 a = np.array(a)
 a = a.astype(int)
 print a
-
-days10 = xrange(365)
-year_2010 = np.empty(len(days))
-doy_2010 = np.empty(len(days))
-for i in days:
-    year_2010[i],doy_2010[i] = datetime.datetime(data_2010[i][0],data_2010[i][1],data_2010[i][2]).strftime('%Y %j').split()
-b = []
-b.append(year_2010)
-b.append(doy_2010)
-b.append(data_2010[3])
-b.append(data_2010[4])
-b = np.array(b)
-b = b.astype(int)
-print b
-
-
-
-
-
-
-
+Temp2009 = a[3290:3655]
+Temp2010 = a[3655:-1096]
 
 
 
 #Can only concatenate list (not str or np)
 #.format for strings only
 #len(data[first dimension
-
-#CLEAN UP THE TEMPERATURE DATA - DONT NEED TO SEPERATE 2009 AND 2010 SO EARLY IN PROCESS
-
-
-
-
-
-
-
 
 
 #Discharge Data
@@ -239,7 +207,6 @@ Dis2010 = d[3697:4044]
 data[  ].mean()
 
 
-#3697 should be end of 2009
 #interesting code
 #z = np.sqrt(x**2 + y**2) # array set up how you want it defined
 #ninside = len(np.where(z<1.)[0]) # new array showing how many values lie in a partciluar region using np.where
