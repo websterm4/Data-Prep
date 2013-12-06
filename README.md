@@ -151,21 +151,21 @@ fp.close()
  #chop off the header lines
 required_data = tdata[3290:-1096] 
 data = np.loadtxt(required_data,usecols=(0,1,2,3,4),unpack=True,dtype=str) #shape(5,363)
-data = data.T
 data = data.astype(int)
 
 days = xrange(365)
 year = np.empty(len(days))
 doy = np.empty(len(days))
-for i in days:
-    year[i],doy[i] = datetime.datetime(data[i][0],data[i][1],data[i][2]).strftime('%Y %j').split()
+for i in xrange(365):
+    year[i],doy[i] = datetime.datetime(data[0][i],data[1][i],data[2][i]).strftime('%Y %j').split()
 a = []
 a.append(year)
 a.append(doy)
 a.append(data[3])
 a.append(data[4])
 a = np.array(a)
-a = a.astype(int)
+a = a.T
+a = a.astype(int)#this bit needs sorting out -erro: setting an array element within a sequence
 print a
 Temp2009 = a[3290:3655]
 Temp2010 = a[3655:-1096]
