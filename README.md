@@ -169,6 +169,11 @@ a = a.astype(int)#this bit needs sorting out -erro: setting an array element wit
 print a
 Temp2009 = a[3290:3655]
 Temp2010 = a[3655:-1096]
+data = np.loadtxt(required_data,usecols=(3,4),unpack=True,dtype=str)
+np.mean(data, axis=0/1) # 0 or 1 here
+# numpy mean (between the max and min values) for every ith row in data
+# sum each value of max and min for every ith row
+#where to find example, In[99] on session 2
 
 
 #TypeError: cannot perform reduce with flexible type; dtype = string then this message occurs
