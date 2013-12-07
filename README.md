@@ -156,7 +156,7 @@ data = data.astype(int)
 days = xrange(365)
 year = np.empty(len(days))
 doy = np.empty(len(days))
-for i in xrange(365):
+for i in days:
     year[i],doy[i] = datetime.datetime(data[0][i],data[1][i],data[2][i]).strftime('%Y %j').split()
 a = []
 a.append(year)
@@ -171,6 +171,8 @@ Temp2009 = a[3290:3655]
 Temp2010 = a[3655:-1096]
 
 
+#TypeError: cannot perform reduce with flexible type; dtype = string then this message occurs
+#np.genfromtxt(filename....)
 
 #Can only concatenate list (not str or np)
 #.format for strings only
