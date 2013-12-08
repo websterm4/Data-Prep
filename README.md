@@ -150,7 +150,7 @@ tdata = fp.readlines()
 fp.close()
  #chop off the header lines
 required_data = tdata[3290:-1096] 
-data = np.loadtxt(required_data,usecols=(0,1,2,3,4),unpack=True,dtype=str) #shape(5,363)
+data = np.loadtxt(required_data,usecols=(3,4),unpack=True,dtype=str) #shape(5,363)
 data = data.astype(int)
 
 days = xrange(365)
